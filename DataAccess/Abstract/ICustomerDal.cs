@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    //dal-dao data accces layer
-    //veri tabanında yapılacak operasyonlar yazılır
-    public interface IProductDal : IEntityRepository<Product>
+    public interface ICustomerDal : IEntityRepository<Customer>
     {
-
     }
 }
