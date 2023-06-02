@@ -14,49 +14,50 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public void Add(Product entity)
         {
-            using (NorthwindCortex cortex = new NorthwindCortex())
+            using (NorthwindContex contex = new NorthwindContex())
             {
-                var added=cortex.Entry(entity);
-                added.State = EntityState.Added;
-                cortex.SaveChanges();
+                contex.Add(entity);
+                contex.SaveChanges();
             }
         }
 
         public void Delete(Product entity)
         {
-            using (NorthwindCortex cortex = new NorthwindCortex())
+            using (NorthwindContex contex = new NorthwindContex())
             {
-                var deleted = cortex.Entry(entity);
-                deleted.State = EntityState.Deleted;
-                cortex.SaveChanges();
+                contex.Set<Product>().Remove(contex.Set<Product>().SingleOrDefault(p=>p.ProductId==entity.ProductId));
+                contex.SaveChanges();
             }
         }
 
         public Product Get(Expression<Func<Product, bool>> filter)
         {
-            using (NorthwindCortex cortex=new NorthwindCortex())
+            using (NorthwindContex contex=new NorthwindContex())
             {
-                return cortex.Set<Product>().SingleOrDefault(filter);
+                return contex.Set<Product>().SingleOrDefault(filter);
             }
         }
 
         public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
         {
-            using (NorthwindCortex cortex=new NorthwindCortex())
+            using (NorthwindContex contex=new NorthwindContex())
             {
                 return filter==null 
-                    ? cortex.Set<Product>().ToList()
-                    : cortex.Set<Product>().Where(filter).ToList();
+                    ? contex.Set<Product>().ToList()
+                    : contex.Set<Product>().Where(filter).ToList();
             }
         }
 
         public void Update(Product entity)
         {
-            using (NorthwindCortex cortex = new NorthwindCortex())
+            using (NorthwindContex contex = new NorthwindContex())
             {
-                var updated = cortex.Entry(entity);
-                updated.State = EntityState.Modified;
-                cortex.SaveChanges();
+                var up=contex.Set<Product>().SingleOrDefault(p=>p.ProductId==entity.ProductId);
+                up.ProductName= entity.ProductName;
+                up.UnitPrice= entity.UnitPrice;
+                up.UnitsInStock= entity.UnitsInStock;
+                up.CategoryId= entity.CategoryId;
+                contex.SaveChanges();
             }
         }
     }

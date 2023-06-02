@@ -14,10 +14,45 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             ProductManager product = new ProductManager(new EfProductDal());
-            GetAllproducts(product);
-          //  enumm();
-           // maxmin(product);
+            CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+
+            foreach (var item in product.GetAllbyCategoryId(categoryManager.GetCategoryByName("produce").CategoryId))
+            {
+                Console.WriteLine(item.ProductName+" ------- "+item.CategoryId);
+            }
+           
+            
+            /*  foreach (var item in categoryManager.GetAllCategories()) 
+              {
+                  Console.WriteLine(item.CategoryName);
+              }*/
+            var a=categoryManager.GetCategoryByName("produce").CategoryId.ToString();
+            Console.WriteLine(a);
+
+
+            // GetAllbyCategory(product);
+            //  GetAllproducts(product);
+            //  enumm();
+            // maxmin(product);
+            // personel();
             Console.ReadLine();
+        }
+
+        private static void personel()
+        {
+            PersonelManager personelManager = new PersonelManager(new EFPersonelDal());
+            foreach (var item in personelManager.GetAllPersonels())
+            {
+                Console.WriteLine(item.Name);
+            }
+        }
+
+        private static void GetAllbyCategory(ProductManager product)
+        {
+            foreach (var item in product.GetAllbyCategoryId(1))
+            {
+                Console.WriteLine(item.ProductName + "  " + item.CategoryId);
+            }
         }
 
         private static void maxmin(ProductManager product)

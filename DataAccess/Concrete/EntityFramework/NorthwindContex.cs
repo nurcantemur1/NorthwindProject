@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Concrete.EntityFramework
 {
     //cortex : db tabloları ile proje classlarını bağlama
-    public class NorthwindCortex:DbContext
+    public class NorthwindContex:DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -18,5 +18,14 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Personel> Personels { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Personel>().ToTable("Employees");
+            modelBuilder.Entity<Personel>().Property(p=>p.Id).HasColumnName("EmployeeID");
+            modelBuilder.Entity<Personel>().Property(p=>p.Name).HasColumnName("FirstName");
+            modelBuilder.Entity<Personel>().Property(p => p.Surname).HasColumnName("LastName");
+
+        }
     }
 }
