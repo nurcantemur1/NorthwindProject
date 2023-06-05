@@ -15,27 +15,46 @@ namespace ConsoleUI
         {
             ProductManager product = new ProductManager(new EfProductDal());
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
+            OrderManager orderManager = new OrderManager(new EFOrderDal());
 
+           foreach (var item in orderManager.GetAll())
+            {
+                Console.WriteLine(item.ShipCity);
+            }
+                //Console.WriteLine("{1},{2},{3},{4},{5}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
+
+            
+            //produceGetAll(product, categoryManager);
+            //GetAllCategoriess(categoryManager);
+            //GettCategoryByNamee(categoryManager);
+            //GetAllbyCategory(product);
+            //GetAllproducts(product);
+            //enumm();
+            //maxmin(product);
+            //personel();
+            Console.ReadLine();
+        }
+
+        private static void produceGetAll(ProductManager product, CategoryManager categoryManager)
+        {
             foreach (var item in product.GetAllbyCategoryId(categoryManager.GetCategoryByName("produce").CategoryId))
             {
-                Console.WriteLine(item.ProductName+" ------- "+item.CategoryId);
+                Console.WriteLine(item.ProductName + " ------- " + item.CategoryId);
             }
-           
-            
-            /*  foreach (var item in categoryManager.GetAllCategories()) 
-              {
-                  Console.WriteLine(item.CategoryName);
-              }*/
-            var a=categoryManager.GetCategoryByName("produce").CategoryId.ToString();
+        }
+
+        private static void GettCategoryByNamee(CategoryManager categoryManager)
+        {
+            var a = categoryManager.GetCategoryByName("produce").CategoryId.ToString();
             Console.WriteLine(a);
+        }
 
-
-            // GetAllbyCategory(product);
-            //  GetAllproducts(product);
-            //  enumm();
-            // maxmin(product);
-            // personel();
-            Console.ReadLine();
+        private static void GetAllCategoriess(CategoryManager categoryManager)
+        {
+            foreach (var item in categoryManager.GetAllCategories())
+            {
+                Console.WriteLine(item.CategoryName);
+            }
         }
 
         private static void personel()

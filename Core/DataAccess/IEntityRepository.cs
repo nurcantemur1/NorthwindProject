@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.DataAccess
-{
+{ //core katmanı başka katmanları referans almaz
     public interface IEntityRepository <T> where T : class,IEntity,new() //generate constraint (kısıtlama)
     {//********
         List<T> GetAll(Expression<Func<T,bool>> filter=null);
