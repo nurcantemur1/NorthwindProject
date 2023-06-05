@@ -13,17 +13,19 @@ namespace ConsoleUI
         }
         static void Main(string[] args)
         {
-            ProductManager product = new ProductManager(new EfProductDal());
+            ProductManager productm = new ProductManager(new EfProductDal());
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             OrderManager orderManager = new OrderManager(new EFOrderDal());
 
-           foreach (var item in orderManager.GetAll())
+            foreach (var item in productm.GetAlldto())
             {
-                Console.WriteLine(item.ShipCity);
+                Console.WriteLine("{0}/{1}/{2}",item.ProductId,item.ProductName,item.CategoryName);
             }
-                //Console.WriteLine("{1},{2},{3},{4},{5}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
 
-            
+            // shipCity(orderManager);
+            //Console.WriteLine("{0},{1},{2},{3},{4}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
+
+
             //produceGetAll(product, categoryManager);
             //GetAllCategoriess(categoryManager);
             //GettCategoryByNamee(categoryManager);
@@ -33,6 +35,14 @@ namespace ConsoleUI
             //maxmin(product);
             //personel();
             Console.ReadLine();
+        }
+
+        private static void shipCity(OrderManager orderManager)
+        {
+            foreach (var item in orderManager.GetAll())
+            {
+                Console.WriteLine(item.ShipCity);
+            }
         }
 
         private static void produceGetAll(ProductManager product, CategoryManager categoryManager)

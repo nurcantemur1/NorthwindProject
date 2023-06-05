@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace DataAccess.Abstract
     public interface IProductDal : IEntityRepository<Product>
     {
         //producta özel join operasyonları yer alacak
-       // List<ProductDto> GetAll();
+        List<ProductDetailDTO> GetAlldto();
     }
 }
