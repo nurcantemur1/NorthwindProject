@@ -16,11 +16,7 @@ namespace ConsoleUI
             ProductManager productm = new ProductManager(new EfProductDal());
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             OrderManager orderManager = new OrderManager(new EFOrderDal());
-
-            foreach (var item in productm.GetAlldto())
-            {
-                Console.WriteLine("{0}/{1}/{2}",item.ProductId,item.ProductName,item.CategoryName);
-            }
+            GetAlldtoo(productm);
 
             // shipCity(orderManager);
             //Console.WriteLine("{0},{1},{2},{3},{4}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
@@ -37,6 +33,22 @@ namespace ConsoleUI
             Console.ReadLine();
         }
 
+        private static void GetAlldtoo(ProductManager productm)
+        {
+            var result = productm.GetAlldto();
+            if (result.Success)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine("{0}/{1}/{2}", item.ProductId, item.ProductName, item.CategoryName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+/*
         private static void shipCity(OrderManager orderManager)
         {
             foreach (var item in orderManager.GetAll())
@@ -109,5 +121,6 @@ namespace ConsoleUI
             var gdg = (gg)a;
             Console.WriteLine(gdg.ToString());
         }
+*/
     }
 }
