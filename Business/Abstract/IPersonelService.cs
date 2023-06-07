@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.Utilities.Results.DataResults;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Business.Abstract
 {
     public interface IPersonelService
     {
-        Personel GetPersonels(int id);
-        List<Personel> GetAllPersonels();   
+        IDataResult<Personel> GetPersonels(int id);
+        IDataResult<List<Personel>> GetAllPersonels();   
 
     }
 }

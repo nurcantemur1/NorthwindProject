@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results.DataResults;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -19,14 +20,14 @@ namespace Business.Concrete
             _personelDal = personelDal;
         }
 
-        public List<Personel> GetAllPersonels()
+        public IDataResult<List<Personel>> GetAllPersonels()
         {
-            return _personelDal.GetAll();
+            return new SuccessDataResult<List<Personel>>(_personelDal.GetAll());
         }
 
-        public Personel GetPersonels(int id)
+        public IDataResult<Personel> GetPersonels(int id)
         {
-            return _personelDal.Get(p=>p.Id==id);
+            return new SuccessDataResult<Personel>(_personelDal.Get(p=>p.Id==id));
         }
     }
 }

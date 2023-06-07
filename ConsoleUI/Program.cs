@@ -16,9 +16,10 @@ namespace ConsoleUI
             ProductManager productm = new ProductManager(new EfProductDal());
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             OrderManager orderManager = new OrderManager(new EFOrderDal());
+            PersonelManager personelManager = new PersonelManager(new EFPersonelDal());
             GetAlldtoo(productm);
 
-            // shipCity(orderManager);
+            shipCity(orderManager);
             //Console.WriteLine("{0},{1},{2},{3},{4}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
 
 
@@ -29,7 +30,7 @@ namespace ConsoleUI
             //GetAllproducts(product);
             //enumm();
             //maxmin(product);
-            //personel();
+            personel(personelManager);
             Console.ReadLine();
         }
 
@@ -48,18 +49,29 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
-/*
+
         private static void shipCity(OrderManager orderManager)
         {
-            foreach (var item in orderManager.GetAll())
+            var result = orderManager.GetAll();
+            if (result.Success)
             {
-                Console.WriteLine(item.ShipCity);
+                foreach (var item in result.Data)
+                { 
+                    Console.WriteLine(item.ShipCity); 
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
         }
 
         private static void produceGetAll(ProductManager product, CategoryManager categoryManager)
         {
-            foreach (var item in product.GetAllbyCategoryId(categoryManager.GetCategoryByName("produce").CategoryId))
+            var d = categoryManager.GetCategoryByName("produce").Data.CategoryId;
+            var result = product.GetAllbyCategoryId(d);
+            foreach (var item in result.Data)
             {
                 Console.WriteLine(item.ProductName + " ------- " + item.CategoryId);
             }
@@ -67,22 +79,21 @@ namespace ConsoleUI
 
         private static void GettCategoryByNamee(CategoryManager categoryManager)
         {
-            var a = categoryManager.GetCategoryByName("produce").CategoryId.ToString();
+            var a = categoryManager.GetCategoryByName("produce").Data.CategoryId.ToString();
             Console.WriteLine(a);
         }
 
         private static void GetAllCategoriess(CategoryManager categoryManager)
         {
-            foreach (var item in categoryManager.GetAllCategories())
+            foreach (var item in categoryManager.GetAllCategories().Data)
             {
                 Console.WriteLine(item.CategoryName);
             }
         }
 
-        private static void personel()
+        private static void personel(PersonelManager personelManager)
         {
-            PersonelManager personelManager = new PersonelManager(new EFPersonelDal());
-            foreach (var item in personelManager.GetAllPersonels())
+            foreach (var item in personelManager.GetAllPersonels().Data)
             {
                 Console.WriteLine(item.Name);
             }
@@ -90,7 +101,7 @@ namespace ConsoleUI
 
         private static void GetAllbyCategory(ProductManager product)
         {
-            foreach (var item in product.GetAllbyCategoryId(1))
+            foreach (var item in product.GetAllbyCategoryId(1).Data)
             {
                 Console.WriteLine(item.ProductName + "  " + item.CategoryId);
             }
@@ -100,7 +111,7 @@ namespace ConsoleUI
         {
             decimal min = 500;
             decimal max = 100;
-            foreach (var item in product.GetByUnitPrice(min, max))
+            foreach (var item in product.GetByUnitPrice(min, max).Data)
             {
                 Console.WriteLine(item.UnitPrice);
             }
@@ -108,7 +119,7 @@ namespace ConsoleUI
 
         private static void GetAllproducts(ProductManager product)
         {
-            foreach (var item in product.GetAll())
+            foreach (var item in product.GetAll().Data)
             {
                 Console.WriteLine(item.ProductName);
             }
@@ -121,6 +132,5 @@ namespace ConsoleUI
             var gdg = (gg)a;
             Console.WriteLine(gdg.ToString());
         }
-*/
     }
 }
