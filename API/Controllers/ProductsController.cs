@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,13 +9,44 @@ namespace API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        [HttpGet]
-        public List<Product> GetProducts() 
+        //loosely coupled
+        IProductService _productService;
+
+        public ProductsController(IProductService productService)
         {
-            return new List<Product>() {
-            new Product { ProductId=1,CategoryId=2,ProductName="g",UnitPrice=8,UnitsInStock=9},
-            new Product {ProductId=1,CategoryId=2,ProductName="f",UnitPrice=8,UnitsInStock=9 }
-            };
+            _productService = productService;
+        }
+
+        [HttpGet("getall")]
+        public IActionResult GetProducts() 
+        {
+            var result = _productService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Product product) 
+        { 
+            var result= _productService.Add(product);
+            if (result.Success) 
+            {
+                return Ok(result); 
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getbyid")]
+        public IActionResult Get(int productId)
+        {
+            var result= _productService.GetProduct(productId);
+            if (result.Success)
+            { 
+                return Ok(result); 
+            }
+            return BadRequest(result);
         }
     }
 }

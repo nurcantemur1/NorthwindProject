@@ -17,20 +17,20 @@ namespace ConsoleUI
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
             OrderManager orderManager = new OrderManager(new EFOrderDal());
             PersonelManager personelManager = new PersonelManager(new EFPersonelDal());
-            GetAlldtoo(productm);
+            //GetAlldtoo(productm);
 
-            shipCity(orderManager);
+            //shipCity(orderManager);
             //Console.WriteLine("{0},{1},{2},{3},{4}",item.OrderId,item.CustomerId,item.EmployeeId,item.OrderDate.ToString(),item.ShipCity);
 
-
+            //Console.WriteLine(productm.GetProduct(2).Data.ProductName);
             //produceGetAll(product, categoryManager);
             //GetAllCategoriess(categoryManager);
             //GettCategoryByNamee(categoryManager);
             //GetAllbyCategory(product);
-            //GetAllproducts(product);
+            //GetAllproducts(productm);
             //enumm();
             //maxmin(product);
-            personel(personelManager);
+            //personel(personelManager);
             Console.ReadLine();
         }
 
