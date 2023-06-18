@@ -18,7 +18,11 @@ namespace API
             builder.Services.AddSingleton<IProductService,ProductManager>();
             builder.Services.AddSingleton<IProductDal,EfProductDal>();
 
+            builder.Services.AddSingleton<ICategoryService, CategoryManager>();
+            builder.Services.AddSingleton<ICategoryDal,EfCategoryDal>();
 
+            builder.Services.AddSingleton<IOrderService,OrderManager>();
+            builder.Services.AddSingleton<IOrderDal,EFOrderDal>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
