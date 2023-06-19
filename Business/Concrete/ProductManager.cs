@@ -21,14 +21,10 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
-
+ 
         public IResult Add(Product product)
         {
-            //business
-            if (product.ProductName.Length < 2)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
