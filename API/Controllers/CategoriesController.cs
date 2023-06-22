@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,11 @@ namespace API.Controllers
             }
             return BadRequest(result.Message);
         }
-
+        [HttpPost("Add")]
+        public IActionResult Add(Category category)
+        {
+            _categoryService.Add(category);
+            return Ok("eklendim ben");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Results.DataResults;
+﻿using Core.Utilities.Results;
+using Core.Utilities.Results.DataResults;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,5 +15,6 @@ namespace Business.Abstract
         IDataResult<List<Category>> GetAllCategories();
         IDataResult<Category>  GetCategoryById(int id);
         IDataResult<Category> GetCategoryByName(string name);
+        IResult Add(Category category);
     }
 }
