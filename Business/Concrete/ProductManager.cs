@@ -23,10 +23,9 @@ namespace Business.Concrete
         IProductDal _productDal;
         ICategoryService _categoryService; //*****
 
-        public ProductManager(IProductDal productDal, ICategoryService categoryService)
+        public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
-            _categoryService = categoryService;
         }
 
 
