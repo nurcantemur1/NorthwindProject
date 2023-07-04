@@ -66,6 +66,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public IList<Product> GetList(Expression<Func<Product, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Product product)
         {
             Product product1 = _products.Find(p=> p.ProductId==product.ProductId);      

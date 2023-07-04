@@ -1,11 +1,12 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
-using Core.Business;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
-using Core.Utilities.Results.DataResults;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -28,8 +29,9 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-
-        [ValidationAspect(typeof(ProductValidator))]
+       // [SecuredOperation("product.add,admin")]
+        //[ValidationAspect(typeof(ProductValidator))]
+       // [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             IResult result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId),
@@ -43,29 +45,34 @@ namespace Business.Concrete
 
         }
 
+        public IResult AddTransactionalTest(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll());
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductListed);
         }
 
         public IDataResult<List<Product>> GetAllbyCategoryId(int id)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id), true);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
 
         public IDataResult<List<ProductDetailDTO>> GetAlldto()
         {
-            return new SuccessDataResult<List<ProductDetailDTO>>(_productDal.GetAlldto(), true);
+            return new SuccessDataResult<List<ProductDetailDTO>>(_productDal.GetAlldto());
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice <= min && p.UnitPrice >= max), true);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice <= min && p.UnitPrice >= max));
         }
-
         public IDataResult<Product> GetProduct(int id)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == id), true);
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == id));
         }
 
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
@@ -96,5 +103,6 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
     }
 }

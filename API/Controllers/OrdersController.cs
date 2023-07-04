@@ -6,10 +6,10 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController1 : ControllerBase
+    public class OrdersController : ControllerBase
     {
         IOrderService _orderService;
-        public OrdersController1(IOrderService orderService)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
         }

@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
-using Core.Utilities.Results.DataResults;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Category>> GetAllCategories()
         {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.CategoryListed);
         }
 
         public IDataResult<Category> GetCategoryById(int id)

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Utilities.Security.Hashing
 {
     public class HashingHelper
     {
-        public static void CreatePasswordHashing(string password,out byte[] passwordHast,out byte[] passwordSalt) 
+        public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using(var hmac= new System.Security.Cryptography.HMACSHA512()) 
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())//hmac: kriptografi sınıfında kulllanılan sınıf
             {
                 passwordSalt = hmac.Key;
-                passwordHast = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
         }
+
         public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
@@ -27,8 +26,10 @@ namespace Core.Utilities.Security.Hashing
                     {
                         return false;
                     }
+
                 }
                 return true;
+
             }
         }
     }
